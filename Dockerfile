@@ -19,7 +19,7 @@ COPY prisma ./prisma
 RUN pnpm config set allowed-builds '*' -g
 
 # Install dependencies
-# RUN pnpm install --frozen-lockfile --force
+RUN pnpm install --frozen-lockfile
 
 # Copy rest of the project files
 COPY . .
