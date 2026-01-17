@@ -3,7 +3,7 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - '**'  # Run on push to any branch
+      - 'main'
 
 jobs:
   test-and-build:
@@ -27,14 +27,14 @@ jobs:
         run: pnpm install
 
       - name: Format check
-        run: pnpm format:fix
+        run: pnpm run format:fix
 
       - name: Lint code
         run: pnpm run lint
-        run: pnpm lint:fix
+        run: pnpm run lint:fix
 
       - name: Validate Prisma schema and generate client
-        run: pnpm db:generate && pnpm db:validate
+        run: pnpm run db:generate && pnpm run db:validate
 
       - name: Build project
         run: pnpm run build
