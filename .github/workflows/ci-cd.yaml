@@ -1,4 +1,3 @@
-
 name: Lint, Format, Build, Push & Deploy
 
 on:
@@ -7,7 +6,7 @@ on:
   pull_request:
     branches:
       - '**'
-
+# _____________________________________________________________________________________________For Check Lint, Format and Build Job
 jobs:
   ci-check:
     name: Lint, Format, Build
@@ -38,7 +37,7 @@ jobs:
 
       - name: Build Project
         run: pnpm build
-
+# _____________________________________________________________________________________________For Create docker image and push to DockerHub Job
   build-and-push:
     name: Build and Push Docker Image
     runs-on: ubuntu-latest
@@ -64,3 +63,49 @@ jobs:
           context: .
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/${{ secrets.PACKAGE_NAME }}:${{ secrets.PACKAGE_VERSION }}
+# _____________________________________________________________________________________________For Deployment Job
+  # deploy:
+  #   name: Deploy
+  #   runs-on: ubuntu-latest
+  #   needs: build-and-push
+  #   if: github.ref == 'refs/heads/main'
+
+  #   steps:
+  #     - uses: actions/checkout@v4
+
+  #     - name: Login to Docker Hub
+  #       uses: docker/login-action@v3
+  #       with:
+  #         username: ${{ secrets.DOCKER_USERNAME }}
+  #         password: ${{ secrets.DOCKER_PASSWORD }}
+
+  #     - name: Copy Compose File
+  #       uses: appleboy/scp-action@v0.1.7
+  #       with:
+  #         host: ${{ secrets.VPS_HOST }}
+  #         username: ${{ secrets.VPS_USER }}
+  #         key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
+  #         source: 'compose.yaml'
+  #         target: '/home/${{ secrets.VPS_USER }}/server'
+
+  #     - name: Copy Caddy File
+  #       uses: appleboy/scp-action@v0.1.7
+  #       with:
+  #         host: ${{ secrets.VPS_HOST }}
+  #         username: ${{ secrets.VPS_USER }}
+  #         key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
+  #         source: 'Caddyfile'
+  #         target: '/home/${{ secrets.VPS_USER }}/server'
+
+  #     - name: Deploy via SSH
+  #       uses: appleboy/ssh-action@v1.0.3
+  #       with:
+  #         host: ${{ secrets.VPS_HOST }}
+  #         username: ${{ secrets.VPS_USER }}
+  #         key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
+  #         script: |
+  #           cd ~/server
+  #           sudo docker compose --profile prod pull
+  #           sudo docker compose --profile prod down
+  #           sudo docker compose --profile prod up -d
+  #           sudo docker system prune -f
