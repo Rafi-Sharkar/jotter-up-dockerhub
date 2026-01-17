@@ -30,7 +30,6 @@ jobs:
         run: pnpm run format:fix
 
       - name: Lint code
-        run: pnpm run lint
         run: pnpm run lint:fix
 
       - name: Validate Prisma schema and generate client
