@@ -16,7 +16,7 @@ COPY prisma.config.ts ./
 COPY prisma ./prisma
 
 # Allow pnpm to build packages
-RUN pnpm config set allowed-builds '*' -g
+# RUN pnpm config set allowed-builds '*' -g
 
 # Install dependencies
 RUN pnpm install --frozen-lockfile
@@ -25,6 +25,7 @@ RUN pnpm install --frozen-lockfile
 COPY . .
 
 # Build the app (NestJS -> dist/)
+ENV NODE_OPTIONS="--max-old-space-size=4096"
 RUN pnpm build
 
 # ====== PRODUCTION STAGE ======
@@ -50,7 +51,7 @@ COPY --from=builder /app/prisma ./prisma
 RUN pnpm install --frozen-lockfile
 
 # Expose the port
-EXPOSE 3000
+EXPOSE 5000
 
 # Run the app
 CMD ["pnpm", "start"]

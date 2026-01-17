@@ -54,7 +54,7 @@ async function bootstrap() {
   );
 
   // * set port
-  const port = parseInt(configService.get<string>(ENVEnum.PORT) ?? '3000', 10);
+  const port = parseInt(configService.get<string>(ENVEnum.PORT) ?? '5000', 10);
   await app.listen(port, () => {
     console.info(`smart Solution listening on port  ${port}`);
     console.info(`smart Solution swagger http://localhost:${port}/docs`);
