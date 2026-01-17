@@ -114,7 +114,10 @@ export class FileSystemController {
   @UseInterceptors(
     FileInterceptor(
       'file',
-      new MulterService().createMemoryStorageOptions(FileType.any, 50 * 1024 * 1024),
+      new MulterService().createMemoryStorageOptions(
+        FileType.any,
+        50 * 1024 * 1024,
+      ),
     ),
   )
   uploadFileItem(

@@ -7,9 +7,9 @@ import { Injectable } from '@nestjs/common';
 import { ItemType } from '@prisma';
 import { CreateFolderDto, UpdateFolderDto } from './dto/folder.dto';
 import {
-    CreateItemDto,
-    UpdateItemDto,
-    UploadFileItemDto,
+  CreateItemDto,
+  UpdateItemDto,
+  UploadFileItemDto,
 } from './dto/item.dto';
 import { QueryDto } from './dto/query.dto';
 
@@ -321,7 +321,12 @@ export class FileSystemService {
     type?: ItemType,
     favorites?: boolean,
   ) {
-    const { page = 1, limit = 10, sortBy = 'createdAt', sortOrder = 'desc' } = query;
+    const {
+      page = 1,
+      limit = 10,
+      sortBy = 'createdAt',
+      sortOrder = 'desc',
+    } = query;
 
     const where: any = {
       userId,
@@ -621,7 +626,11 @@ export class FileSystemService {
   }
 
   @HandleError('Failed to restore', 'FileSystem')
-  async restoreFromTrash(userId: string, itemId: string, type: 'folder' | 'item') {
+  async restoreFromTrash(
+    userId: string,
+    itemId: string,
+    type: 'folder' | 'item',
+  ) {
     if (type === 'folder') {
       const folder = await this.prisma.client.folder.findFirst({
         where: { id: itemId, userId, isDeleted: true },

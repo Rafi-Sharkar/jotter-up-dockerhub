@@ -6,13 +6,7 @@ import { SeedModule } from './seed/seed.module';
 import { UtilsModule } from './utils/utils.module';
 
 @Module({
-  imports: [
-    PrismaModule,
-    FileModule,
-    MailModule,
-    SeedModule,
-    UtilsModule,
-  ],
+  imports: [PrismaModule, FileModule, MailModule, SeedModule, UtilsModule],
   exports: [],
   providers: [],
 })
