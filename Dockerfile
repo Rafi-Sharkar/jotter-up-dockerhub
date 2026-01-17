@@ -19,7 +19,7 @@ COPY prisma ./prisma
 RUN pnpm config set allowed-builds '*' -g
 
 # Install dependencies
-RUN pnpm install --frozen-lockfile
+RUN pnpm install --prod --frozen-lockfile
 
 # Copy rest of the project files
 COPY . .
@@ -46,8 +46,8 @@ COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/prisma.config.ts ./
 COPY --from=builder /app/prisma ./prisma
 
-# Install dependencies
-RUN pnpm install --frozen-lockfile
+# Install production dependencies only
+RUN pnpm install --prod --frozen-lockfile
 
 # Expose the port
 EXPOSE 3000
