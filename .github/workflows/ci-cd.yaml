@@ -1,11 +1,15 @@
 name: Lint, Format, Build, Push & Deploy
 
 on:
+  # Push (merge) ONLY to main
   push:
-    branches: [main]
+    branches: 
+      - main
+
+  # PRs ONLY to dev
   pull_request:
-    branches:
-      - '**'
+    branches: 
+      - dev
 # _____________________________________________________________________________________________For Check Lint, Format and Build Job
 jobs:
   ci-check:
