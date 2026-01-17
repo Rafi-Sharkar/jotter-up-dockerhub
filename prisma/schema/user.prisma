@@ -1,0 +1,46 @@
+model User {
+  id String @id @default(uuid())
+
+  // Identity
+  name     String @default("Unnamed User")
+  email    String @unique
+  password String // hashed password
+
+  // Settings
+  role       UserRole   @default(USER)
+  status     UserStatus @default(ACTIVE)
+  isVerified Boolean    @default(false)
+
+  // Activity
+  lastLoginAt  DateTime?
+  lastActiveAt DateTime?
+
+  // Avatar
+  profilePictureId String?
+  profilePicture   FileInstance? @relation(fields: [profilePictureId], references: [id], onDelete: SetNull)
+
+  // Auth
+  refreshTokens RefreshToken[]
+  otps          UserOtp[]
+
+  // FILE SYSTEM RELATIONS
+  folders Folder[]
+  items   Item[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@map("users")
+}
+
+enum UserRole {
+  SUPER_ADMIN
+  ADMIN
+  USER
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  DELETED
+}

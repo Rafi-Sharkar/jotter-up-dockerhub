@@ -1,0 +1,60 @@
+model Folder {
+  id String @id @default(uuid())
+
+  name        String
+  description String?
+  color       String?
+  parentId    String?
+  parent      Folder?  @relation("FolderHierarchy", fields: [parentId], references: [id], onDelete: Cascade)
+  subfolders  Folder[] @relation("FolderHierarchy")
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  items     Item[]
+  isFavorite Boolean @default(false)
+  isDeleted  Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@map("folders")
+}
+
+model Item {
+  id String @id @default(uuid())
+
+  name        String
+  description String?
+  type        ItemType
+  content     String? // For notes, this will contain the note content
+  
+  fileId String?
+  file   FileInstance? @relation(fields: [fileId], references: [id], onDelete: SetNull)
+
+  folderId String?
+  folder   Folder? @relation(fields: [folderId], references: [id], onDelete: Cascade)
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  size       BigInt   @default(0) // Size in bytes
+  isFavorite Boolean  @default(false)
+  isDeleted  Boolean  @default(false)
+  tags       String[] @default([])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@map("items")
+}
+
+enum ItemType {
+  NOTE
+  IMAGE
+  PDF
+  DOCUMENT
+  VIDEO
+  AUDIO
+  OTHER
+}
