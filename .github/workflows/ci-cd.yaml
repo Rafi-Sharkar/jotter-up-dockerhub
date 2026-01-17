@@ -1,0 +1,39 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - '**'  # Run on push to any branch
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Format check
+        run: pnpm run format
+
+      - name: Lint code
+        run: pnpm run lint
+
+      - name: Validate Prisma schema and generate client
+        run: pnpm prisma generate && pnpm run db:validate
+
+      - name: Build project
+        run: pnpm run build
