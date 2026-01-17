@@ -2,7 +2,7 @@
 FROM node:24-slim AS builder
 
 # Enable corepack and activate pnpm
-RUN corepack enable && corepack prepare pnpm@10.28.0 --activate
+RUN corepack enable && corepack prepare pnpm@10 --activate
 
 # Set working directory
 WORKDIR /app
@@ -32,7 +32,7 @@ RUN pnpm build
 FROM node:24-slim AS production
 
 # Enable corepack and activate pnpm
-RUN corepack enable && corepack prepare pnpm@10.28.0 --activate
+RUN corepack enable && corepack prepare pnpm@10 --activate
 
 # Set working directory
 WORKDIR /app
