@@ -63,7 +63,7 @@
 FROM node:24-slim AS builder
 
 # Enable corepack and activate pnpm
-RUN corepack enable && corepack prepare pnpm@latest --activate
+RUN corepack enable && corepack prepare pnpm@10 --activate
 
 # Set working directory
 WORKDIR /app
@@ -90,7 +90,7 @@ RUN pnpm build
 FROM node:24-slim AS production
 
 # Enable corepack and activate pnpm
-RUN corepack enable && corepack prepare pnpm@latest --activate
+RUN corepack enable && corepack prepare pnpm@10 --activate
 
 # Set working directory
 WORKDIR /app
@@ -107,6 +107,9 @@ COPY --from=builder /app/prisma ./prisma
 
 # Install dependencies
 RUN pnpm install --frozen-lockfile
+
+# Install only production dependencies
+RUN pnpm install --prod --frozen-lockfile
 
 # Expose the port
 EXPOSE 5000

@@ -6,6 +6,7 @@ dist
 # App data
 data
 logs
+*.log
 temp
 uploads
 
