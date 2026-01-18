@@ -109,7 +109,7 @@ COPY --from=builder /app/prisma ./prisma
 RUN pnpm install --frozen-lockfile
 
 # Install only production dependencies
-RUN pnpm install --prod --frozen-lockfile
+RUN pnpm install --prod --frozen-lockfile --ignore-scripts
 
 # Expose the port
 EXPOSE 5000
