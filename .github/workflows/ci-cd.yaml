@@ -67,6 +67,8 @@ jobs:
           context: .
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/${{ secrets.PACKAGE_NAME }}:${{ secrets.PACKAGE_VERSION }}
+
+          
 # _____________________________________________________________________________________________For Deployment Job
   # deploy:
   #   name: Deploy
