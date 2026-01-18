@@ -121,7 +121,7 @@ services:
 
   server:
     platform: linux/amd64
-    image: softvence/${PACKAGE_NAME}:latest
+    image: rafi/${PACKAGE_NAME}:latest
     container_name: ${PACKAGE_NAME}_api
     profiles:
       - prod
