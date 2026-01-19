@@ -121,6 +121,9 @@ services:
 
   server:
     platform: linux/amd64
+    build:
+      context: .
+      dockerfile: Dockerfile
     image: rafi/${PACKAGE_NAME}:latest
     container_name: ${PACKAGE_NAME}_api
     profiles:
@@ -224,7 +227,7 @@ services:
         'no',
       ]
     ports:
-      - '22376:6379'
+      - '22380:6379'
     healthcheck:
       test: ['CMD', 'redis-cli', 'ping']
       interval: 5s
@@ -249,7 +252,7 @@ services:
         'no',
       ]
     ports:
-      - '22377:6379'
+      - '22381:6379'
     depends_on:
       - redis-master
     restart: always
