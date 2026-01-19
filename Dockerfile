@@ -104,12 +104,7 @@ COPY --from=builder /app/pnpm-lock.yaml ./pnpm-lock.yaml
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/prisma.config.ts ./
 COPY --from=builder /app/prisma ./prisma
-
-# Install dependencies
-RUN pnpm install --frozen-lockfile
-
-# Install only production dependencies
-RUN pnpm install --prod --frozen-lockfile --ignore-scripts
+COPY --from=builder /app/node_modules ./node_modules
 
 # Expose the port
 EXPOSE 5000
