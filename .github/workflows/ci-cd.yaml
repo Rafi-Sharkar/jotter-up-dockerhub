@@ -159,10 +159,10 @@ jobs:
           port: 22
           script: |
             cd ~/server
-            sudo docker compose --profile prod pull
-            sudo docker compose --profile prod down
-            sudo docker compose --profile prod up -d
-            sudo docker system prune -f
+            docker compose --profile prod pull
+            docker compose --profile prod down
+            docker compose --profile prod up -d
+            docker system prune -f
 
       - name: Telegram Success
         if: success()
