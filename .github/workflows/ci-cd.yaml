@@ -126,6 +126,7 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
+          port: 22
           source: 'compose.yaml'
           target: '/home/${{ secrets.VPS_USER }}/server'
 
@@ -135,6 +136,7 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
+          port: 22
           source: 'Caddyfile'
           target: '/home/${{ secrets.VPS_USER }}/server'
 
@@ -144,6 +146,7 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
+          port: 22
           source: '.env.production'
           target: '/home/${{ secrets.VPS_USER }}/server/.env'
 
@@ -153,6 +156,7 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
+          port: 22
           script: |
             cd ~/server
             sudo docker compose --profile prod pull
