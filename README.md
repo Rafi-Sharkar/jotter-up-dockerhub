@@ -1,5 +1,7 @@
+Get APIs
+
 ```
-Hello, Upload image to Docker hub
+13.49.51.71/docs
 
 ```
 
