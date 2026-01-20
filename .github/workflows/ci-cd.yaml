@@ -160,6 +160,7 @@ jobs:
           script: |
             cd ~/server
             mv compose.production.yaml compose.yaml
+            nano .env
             mv .env.production .env
             docker compose --profile prod pull
             docker compose --profile prod down
