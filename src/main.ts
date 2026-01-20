@@ -41,7 +41,7 @@ async function bootstrap() {
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('docs', app, document, {
+  SwaggerModule.setup('apis', app, document, {
     swaggerOptions: {
       persistAuthorization: true,
     },
@@ -57,7 +57,7 @@ async function bootstrap() {
   const port = parseInt(configService.get<string>(ENVEnum.PORT) ?? '5000', 10);
   await app.listen(port, () => {
     console.info(`smart Solution listening on port  ${port}`);
-    console.info(`smart Solution swagger http://localhost:${port}/docs`);
+    console.info(`smart Solution swagger http://localhost:${port}/apis`);
   });
 }
 bootstrap();
